@@ -1,6 +1,6 @@
-from models import Pomodoro
-from task_operations import TaskManager
-from modules import PomodoroValidationError, TaskValidationError
+from src.common.models import Pomodoro
+from src.modules.task_operations import TaskManager
+from src.common.exceptions import PomodoroValidationError, TaskValidationError
 from datetime import datetime
 
 class PomodoroManager:

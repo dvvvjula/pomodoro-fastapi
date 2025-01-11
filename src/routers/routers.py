@@ -1,8 +1,8 @@
 from fastapi import FastAPI, HTTPException
-from models import Task, Pomodoro
-from modules import TaskValidationError, PomodoroValidationError
-from task_operations import TaskManager
-from pomodoro_operations import PomodoroManager
+from src.common.models import Task, Pomodoro
+from src.common.exceptions import TaskValidationError, PomodoroValidationError
+from src.modules.task_operations import TaskManager
+from src.modules.pomodoro_operations import PomodoroManager
 from typing import List, Optional
 
 app = FastAPI()
