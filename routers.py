@@ -53,3 +53,14 @@ async def create_pomodoro(task_id: int, pomodoro:Pomodoro):
         PomodoroManager.start_pomodoro(task_id, pomodoro)
     except PomodoroValidationError as e:
         raise HTTPException(status_code=400, detail=e.message)
+    
+@app.post("/pomodoro/{task_id}/stop")
+async def stop_pomodoro(task_id: int):
+    try:
+        PomodoroManager.close_pomodoro(task_id)
+    except PomodoroValidationError as e:
+        raise HTTPException(status_code=400, detail=e.message)
+    
+@app.get("/pomodoro/stats")
+async def show_pomodoro_stats():
+    return PomodoroManager.pomodoro_stats()
