@@ -2,20 +2,26 @@ from fastapi import FastAPI, HTTPException
 from models import Task, Pomodoro
 from modules import TaskValidationError, PomodoroValidationError
 from task_operations import TaskManager
+from typing import List, Optional
 
 app = FastAPI()
 
-@app.get('/tasks')
-async def get_all_tasks():
-    return TaskManager.get_tasks()
+@app.get("/tasks", response_model=List[Task])
+async def get_tasks_by_status(status: Optional[str] = None):
+    try:
+        if status:
+            return TaskManager.get_status_tasks(status)
+        else:
+            return TaskManager.get_tasks()
+    except TaskValidationError as e:
+        raise HTTPException(status_code=400, detail=e.message)
 
 @app.get("/tasks/{task_id}", response_model=Task)
-async def get_task_by_id(task_id: str):
-    task = (TaskManager.get_tasks()).get(task_id)
-
-    if not task:
-        raise HTTPException(status_code=404, detail='Task not found')
-    return task
+async def get_task_by_id(task_id: int):
+    try:
+        return TaskManager.get_id_task(task_id)
+    except HTTPException as e:
+        raise HTTPException(status_code=400, detail=e.message)
 
 @app.post("/tasks")
 async def add_task(task:Task):
