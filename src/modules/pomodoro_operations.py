@@ -38,7 +38,6 @@ class PomodoroManager:
         if pomodoro.completed:
             PomodoroManager.total_time += PomodoroManager.count_pomodoro_time(pomodoro.start_time, pomodoro.end_time)
             PomodoroManager.finished_sessions[id] = PomodoroManager.finished_sessions.get(id, 0)+1
-            task.status = 'finished'
         else:
             PomodoroManager.pomodoro_timers[id] = pomodoro
             task.status = 'in progress'
@@ -46,7 +45,7 @@ class PomodoroManager:
     @staticmethod
     def close_pomodoro(id: int):
         try:
-            task = TaskManager.get_id_task(id)
+            TaskManager.get_id_task(id)
         except TaskValidationError as e:
             raise PomodoroValidationError(f'Cannot close this pomodoro timer - {e}!')
         
@@ -58,7 +57,6 @@ class PomodoroManager:
             PomodoroManager.total_time += PomodoroManager.count_pomodoro_time(start, end)
             PomodoroManager.pomodoro_timers.pop(id)
             PomodoroManager.finished_sessions[id] = PomodoroManager.finished_sessions.get(id, 0)+1
-            task.status = 'finished'
 
     @staticmethod
     def count_pomodoro_time(start_time: datetime, end_time: datetime):
