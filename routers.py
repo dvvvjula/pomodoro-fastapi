@@ -29,3 +29,17 @@ async def add_task(task:Task):
         TaskManager.create_task(task)
     except TaskValidationError as e:
         raise HTTPException(status_code=400, detail=e.message)
+    
+@app.put("/tasks/{task_id}")
+async def update_task_by_id(task_id: int, task: Task):
+    try:
+        TaskManager.update_task(task_id, task)
+    except TaskValidationError as e:
+        raise HTTPException(status_code=400, detail=e.message)
+
+@app.delete("/tasks/{task_id}")
+async def delete_task(task_id: int):
+    try:
+        TaskManager.delete_task(task_id)
+    except TaskValidationError as e:
+        raise HTTPException(status_code=400, detail=e.message)
