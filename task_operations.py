@@ -51,7 +51,7 @@ class TaskManager:
         for task in TaskManager.tasks:
             if task.id == id:
                 return task
-        raise HTTPException(f'There is no task with id {id} in the database!')
+        raise HTTPException(status_code=404, detail=f"There is no task with id {id} in the database!")
     
     @staticmethod
     def get_status_tasks(status: str) -> List[Task]:

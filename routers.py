@@ -2,6 +2,7 @@ from fastapi import FastAPI, HTTPException
 from models import Task, Pomodoro
 from modules import TaskValidationError, PomodoroValidationError
 from task_operations import TaskManager
+from pomodoro_operations import PomodoroManager
 from typing import List, Optional
 
 app = FastAPI()
@@ -42,4 +43,13 @@ async def delete_task(task_id: int):
     try:
         TaskManager.delete_task(task_id)
     except TaskValidationError as e:
+        raise HTTPException(status_code=400, detail=e.message)
+
+"""For pomodoro"""
+
+@app.post("/pomodoro")
+async def create_pomodoro(task_id: int, pomodoro:Pomodoro):
+    try:
+        PomodoroManager.start_pomodoro(task_id, pomodoro)
+    except PomodoroValidationError as e:
         raise HTTPException(status_code=400, detail=e.message)
