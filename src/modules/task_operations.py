@@ -14,16 +14,16 @@ class TaskManager:
 
         """Data validation:
 
-        1. tittle - min. 3, max. 100 characters long, must be unique.
+        1. title - min. 3, max. 100 characters long, must be unique.
         2. description - optional, max. 300 characters long.
         3. status - 'to do', 'in progress', 'finished'; default - 'to do'"""
         
         if len(task.tittle) < 3 or len(task.tittle) > 100:
-            raise TaskValidationError('Size of the tittle should be in range of 3-100 letters!')
+            raise TaskValidationError('Size of the title should be in range of 3-100 letters!')
         
         for value in TaskManager.tasks:
             if value.tittle == task.tittle:
-                raise TaskValidationError('Tittle has to be unique, be creative please')
+                raise TaskValidationError('Title has to be unique, be creative please')
 
             
         if len(task.description) < 0 or len(task.description) > 300:
@@ -63,7 +63,7 @@ class TaskManager:
     def update_task(id: int, task: Task):
         for value in TaskManager.tasks:
             if value.tittle == task.tittle:
-                raise TaskValidationError('Tittle has to be unique, be creative please')
+                raise TaskValidationError('Title has to be unique, be creative please')
 
         if len(task.description) == 0 or len(task.description) > 300:
             raise TaskValidationError('Size of the description should be in range of 0-300 letters!')
