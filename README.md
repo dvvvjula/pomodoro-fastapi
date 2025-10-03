@@ -33,7 +33,7 @@ The project was developed as part of the university course **Specialized Softwar
 
 1. Clone the repository:
    ```bash
-   git clone https://github.com/your-username/pomodoro-task-api.git
+   git clone https://github.com/dvvvjula/pomodoro-fastapi.git
    cd pomodoro-task-api
 
 2. Install dependencies:
